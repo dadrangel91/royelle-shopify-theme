@@ -1,0 +1,64 @@
+{% assign p = section.settings.product %}
+<section class="section">
+<div class="container grid grid--2">
+<div>
+<div class="gallery">
+{% if p and p.featured_image %}
+<img src="{{ p.featured_image | image_url: width: 1200, height: 1200 }}" alt="{{ p.title | escape }}">
+{% elsif p and p.images.size > 0 %}
+{% for image in p.images %}
+<img loading="lazy" src="{{ image | image_url: width: 800 }}" alt="{{ p.title | escape }}">
+{% endfor %}
+{% else %}
+<div class="card">Assign a product in section settings.</div>
+{% endif %}
+</div>
+</div>
+<div>
+{% if p %}
+<h2 class="h1">{{ p.title }}</h2>
+<div class="price">{{ p.price | money }}</div>
+{% render 'trust-badges' %}
+
+
+{% form 'product', p %}
+{% if p.has_only_default_variant == false %}
+<label for="variant">Choose an option</label>
+<select id="variant" name="id">
+{% for v in p.variants %}
+<option value="{{ v.id }}" {% if v == p.selected_or_first_available_variant %}selected{% endif %} {% unless v.available %}disabled{% endunless %}>
+{{ v.title }} — {{ v.price | money }} {% unless v.available %}(Sold out){% endunless %}
+</option>
+{% endfor %}
+</select>
+{% else %}
+<input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}">
+{% endif %}
+
+
+<div class="quantity" style="margin:12px 0">
+<label for="qty-{{ section.id }}">Qty</label>
+<input id="qty-{{ section.id }}" type="number" name="quantity" value="1" min="1" step="1">
+</div>
+
+
+<button type="submit" class="btn" {% unless p.available %}disabled{% endunless %}>
+{% if p.available %}Add to cart{% else %}Sold out{% endif %}
+</button>
+{% endform %}
+
+
+<div class="prose" style="margin-top:18px">{{ p.description | truncatewords: 120 }}</div>
+{% endif %}
+</div>
+</div>
+</section>
+{% schema %}
+{
+"name": "Feature product",
+"settings": [
+{"type":"product","id":"product","label":"Product"}
+],
+"presets": [{"name":"Feature product"}]
+}
+{% endschema %}
