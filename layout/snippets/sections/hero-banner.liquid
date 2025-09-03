@@ -1,0 +1,40 @@
+<section class="section">
+<div class="container grid grid--2" style="align-items:center">
+<div>
+<h1 class="h1">Royelle</h1>
+<p class="sub">Because Every Woman Deserves to Gleaux.</p>
+{% if section.settings.kicker != blank %}
+<p class="notice" style="margin-top:12px">{{ section.settings.kicker }}</p>
+{% endif %}
+<div style="margin-top:18px">
+{% if section.settings.primary_link %}
+<a class="btn" href="{{ section.settings.primary_link }}">{{ section.settings.primary_label }}</a>
+{% endif %}
+{% if section.settings.secondary_link %}
+<a class="btn btn--outline" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label }}</a>
+{% endif %}
+</div>
+</div>
+<div>
+{% if section.settings.image != blank %}
+<img src="{{ section.settings.image | image_url: width: 1200 }}" alt="Royelle Skincare" style="border-radius:1rem;border:1px solid #eee;width:100%">
+{% else %}
+<div class="card">Upload a hero image in the section settings.</div>
+{% endif %}
+</div>
+</div>
+</section>
+{% schema %}
+{
+"name": "Hero banner",
+"settings": [
+{"type":"text","id":"kicker","label":"Announcement","default":"New: LED Light Therapy Mask now available"},
+{"type":"image_picker","id":"image","label":"Right image"},
+{"type":"text","id":"primary_label","label":"Primary button label","default":"Shop Exfoliator"},
+{"type":"url","id":"primary_link","label":"Primary button link"},
+{"type":"text","id":"secondary_label","label":"Secondary button label","default":"Shop LED Mask"},
+{"type":"url","id":"secondary_link","label":"Secondary button link"}
+],
+"presets": [{"name":"Hero banner"}]
+}
+{% endschema %}
