@@ -1,0 +1,56 @@
+<section class="section">
+<div class="container grid grid--2">
+<div>
+<div class="gallery">
+{% if product and product.images.size > 0 %}
+{% for image in product.images %}
+<img loading="lazy" src="{{ image | image_url: width: 1000 }}" alt="{{ product.title | escape }}">
+{% endfor %}
+{% else %}
+<div class="card">Add images to this product.</div>
+{% endif %}
+</div>
+</div>
+<div>
+<h1 class="h1">{{ product.title }}</h1>
+<div class="price">{{ product.price | money }}</div>
+{% render 'trust-badges' %}
+
+
+{% form 'product', product %}
+{% if product.has_only_default_variant == false %}
+<label for="variant">Choose an option</label>
+<select id="variant" name="id">
+{% for v in product.variants %}
+<option value="{{ v.id }}" {% if v == product.selected_or_first_available_variant %}selected{% endif %} {% unless v.available %}disabled{% endunless %}>
+{{ v.title }} — {{ v.price | money }} {% unless v.available %}(Sold out){% endunless %}
+</option>
+{% endfor %}
+</select>
+{% else %}
+<input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+{% endif %}
+
+
+<div class="quantity" style="margin:12px 0">
+<label for="qty">Qty</label>
+<input id="qty" type="number" name="quantity" value="1" min="1" step="1">
+</div>
+
+
+<button type="submit" class="btn" {% unless product.available %}disabled{% endunless %}>
+{% if product.available %}Add to cart{% else %}Sold out{% endif %}
+</button>
+{% endform %}
+
+
+<div class="prose" style="margin-top:18px">{{ product.description }}</div>
+
+
+<div class="card" style="margin-top:16px">
+<strong>Shipping & Returns</strong>
+<p class="sub">Free 3–5 day shipping on most U.S. orders. 30‑day money‑back guarantee.</p>
+</div>
+</div>
+</div>
+</section>
