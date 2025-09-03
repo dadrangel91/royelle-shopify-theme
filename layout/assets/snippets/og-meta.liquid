@@ -1,0 +1,13 @@
+{%- assign share_title = page_title | default: shop.name -%}
+{%- assign share_desc = page_description | default: shop.meta_description -%}
+{%- assign share_img = settings.share_image | image_url: width: 1200 -%}
+
+
+<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:title" content="{{ share_title }}">
+<meta property="og:description" content="{{ share_desc }}">
+{% if settings.share_image %}<meta property="og:image" content="{{ share_img }}">{% endif %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ share_title }}">
+<meta name="twitter:description" content="{{ share_desc }}">
+{% if settings.share_image %}<meta name="twitter:image" content="{{ share_img }}">{% endif %}
