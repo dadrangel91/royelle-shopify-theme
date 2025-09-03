@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% if page_title %}{{ page_title }} — {% endif %}{{ shop.name }}</title>
+    <meta name="description" content="{{ page_description | default: shop.meta_description | escape }}">
+
+    {% render 'og-meta' %}
+    {% render 'seo-jsonld' %}
+
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body class="font-system">
+    {{ content_for_layout }}
+  </body>
+</html>
