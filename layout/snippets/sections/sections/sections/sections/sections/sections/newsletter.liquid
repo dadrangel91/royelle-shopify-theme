@@ -1,0 +1,18 @@
+<section class="section">
+<div class="container card">
+<h2 class="h1">Join the Royelle Ritual</h2>
+<p class="sub">Skincare tips, early access, and member‑only offers.</p>
+{% form 'customer' %}
+<input type="hidden" name="contact[tags]" value="newsletter">
+<label for="Email">Email</label>
+<input id="Email" type="email" name="contact[email]" required>
+<div style="margin-top:12px"><button class="btn" type="submit">Subscribe</button></div>
+{% if form.posted_successfully? %}
+<p class="notice" style="margin-top:12px">Thanks for subscribing!</p>
+{% endif %}
+{% endform %}
+</div>
+</section>
+{% schema %}
+{"name":"Newsletter","presets":[{"name":"Newsletter"}]}
+{% endschema %}
