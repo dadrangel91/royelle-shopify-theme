@@ -1,0 +1,20 @@
+{
+"sections": {
+"hero": {
+"type": "hero-banner",
+"settings": {
+"kicker": "New: LED Light Therapy Mask now available",
+"primary_label": "Shop Exfoliator",
+"primary_link": "/collections/all",
+"secondary_label": "Shop LED Mask",
+"secondary_link": "/collections/all"
+}
+},
+"benefits": { "type": "benefits-grid" },
+"feature1": { "type": "feature-product", "settings": { "product": null } },
+"feature2": { "type": "feature-product", "settings": { "product": null } },
+"reviews": { "type": "testimonials" },
+"news": { "type": "newsletter" }
+},
+"order": ["hero", "benefits", "feature1", "feature2", "reviews", "news"]
+}
